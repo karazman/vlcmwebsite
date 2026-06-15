@@ -1,0 +1,20 @@
+{{ define "main" }}
+{{ partial "page-header.html" . }}
+<section class="prose-section">
+    <div class="container">
+        <div class="insights-grid">
+            {{ range .Pages.ByDate.Reverse }}
+            <article class="insight-card reveal">
+                <span class="insight-date">{{ .Date.Format "Jan 2, 2006" }}</span>
+                <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+                <p>{{ .Params.summary | default .Summary }}</p>
+                <a class="case-link" href="{{ .RelPermalink }}">Read more →</a>
+            </article>
+            {{ else }}
+            <p>No insights published yet.</p>
+            {{ end }}
+        </div>
+    </div>
+</section>
+{{ partial "sections/contact.html" . }}
+{{ end }}

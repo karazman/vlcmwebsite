@@ -1,0 +1,14 @@
+{{ define "main" }}
+{{ partial "page-header.html" . }}
+<section class="prose-section">
+    <div class="container case-detail">
+        <div class="case-meta">
+            <span class="case-year">{{ .Date.Format "January 2, 2006" }}</span>
+            {{ with .Params.author }}<span class="case-result-inline">{{ . }}</span>{{ end }}
+        </div>
+        <div class="prose">{{ .Content }}</div>
+        <a class="btn btn-ghost btn-dark" href="{{ `/insights/` | relURL }}">← All insights</a>
+    </div>
+</section>
+{{ partial "sections/contact.html" . }}
+{{ end }}

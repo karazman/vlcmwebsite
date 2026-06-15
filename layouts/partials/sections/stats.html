@@ -1,0 +1,11 @@
+{{ $d := index hugo.Data "site" }}
+<section class="stats-band">
+    <div class="container stats-grid">
+        {{ range $d.stats }}
+        <div class="stat reveal">
+            <span class="stat-value">{{ .value }}</span>
+            <span class="stat-label">{{ .label }}</span>
+        </div>
+        {{ end }}
+    </div>
+</section>

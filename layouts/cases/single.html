@@ -1,0 +1,15 @@
+{{ define "main" }}
+{{ partial "page-header.html" . }}
+<section class="prose-section">
+    <div class="container case-detail">
+        <div class="case-meta">
+            <span class="case-tag">{{ .Params.tag }}</span>
+            <span class="case-year">{{ .Params.year }}</span>
+            <span class="case-result-inline"><span aria-hidden="true">✓</span> {{ .Params.result }}</span>
+        </div>
+        <div class="prose">{{ .Content }}</div>
+        <a class="btn btn-ghost btn-dark" href="{{ `/cases/` | relURL }}">← All cases</a>
+    </div>
+</section>
+{{ partial "sections/contact.html" . }}
+{{ end }}

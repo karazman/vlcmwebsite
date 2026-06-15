@@ -1,0 +1,10 @@
+{{ define "main" }}
+{{ partial "page-header.html" . }}
+{{ partial "sections/cases.html" (dict "showHeading" false) }}
+{{ if .Content }}
+<section class="prose-section">
+    <div class="container prose">{{ .Content }}</div>
+</section>
+{{ end }}
+{{ partial "sections/contact.html" . }}
+{{ end }}
