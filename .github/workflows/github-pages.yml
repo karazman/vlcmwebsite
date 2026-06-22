@@ -59,7 +59,7 @@ jobs:
       - name: Build Sanity Studio into dist
         working-directory: studio
         run: |
-          npx sanity build --basePath /studio
+          npx sanity build --base-path /studio
 
           mkdir -p ../dist/studio
 
@@ -73,6 +73,8 @@ jobs:
             echo "Studio output missing"
             exit 1
           fi
+
+          sed -i 's|href="/static/|href="/studio/static/|g; s|src="/static/|src="/studio/static/|g' ../dist/studio/index.html
         env:
           SANITY_STUDIO_PROJECT_ID: ${{ secrets.SANITY_PROJECT_ID }}
           SANITY_STUDIO_DATASET: ${{ secrets.SANITY_DATASET }}
