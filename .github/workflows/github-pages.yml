@@ -59,7 +59,20 @@ jobs:
       - name: Build Sanity Studio into dist
         working-directory: studio
         run: |
-          npx sanity build ../dist/studio --basePath /studio
+          npx sanity build --basePath /studio
+
+          mkdir -p ../dist/studio
+
+          if [ -f dist/index.html ]; then
+            cp -R dist/. ../dist/studio/
+          fi
+
+          if [ -f ../dist/studio/index.html ]; then
+            echo "Studio output is ready at dist/studio/index.html"
+          else
+            echo "Studio output missing"
+            exit 1
+          fi
         env:
           SANITY_STUDIO_PROJECT_ID: ${{ secrets.SANITY_PROJECT_ID }}
           SANITY_STUDIO_DATASET: ${{ secrets.SANITY_DATASET }}
