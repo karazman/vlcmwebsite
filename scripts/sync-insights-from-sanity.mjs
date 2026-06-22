@@ -12,23 +12,41 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..");
 const outputDir = path.join(repoRoot, "content", "insights");
 
-const projectId = process.env.SANITY_PROJECT_ID;
-const dataset = process.env.SANITY_DATASET;
-const apiVersion = process.env.SANITY_API_VERSION || "2025-01-01";
-const token = process.env.SANITY_API_TOKEN || process.env.SANITY_TOKEN;
+function cleanEnvValue(value) {
+    if (value == null) {
+        return "";
+    }
+
+    let out = String(value).trim();
+    const quoted =
+        (out.startsWith('"') && out.endsWith('"')) ||
+        (out.startsWith("'") && out.endsWith("'"));
+
+    if (quoted) {
+        out = out.slice(1, -1).trim();
+    }
+
+    return out;
+}
+
+const projectId = cleanEnvValue(process.env.SANITY_PROJECT_ID);
+const dataset = cleanEnvValue(process.env.SANITY_DATASET).toLowerCase();
+const apiVersion = cleanEnvValue(process.env.SANITY_API_VERSION) || "2025-01-01";
+const token = cleanEnvValue(process.env.SANITY_API_TOKEN || process.env.SANITY_TOKEN);
 
 if (!projectId || !dataset) {
     console.log("[sanity-sync] Skipped: SANITY_PROJECT_ID and SANITY_DATASET are not set.");
     process.exit(0);
 }
 
-const client = createClient({
-    projectId,
-    dataset,
-    apiVersion,
-    token,
-    useCdn: false,
-});
+const datasetPattern = /^~?[a-z0-9_-]{1,64}$/;
+if (!datasetPattern.test(dataset)) {
+    console.error(
+        `[sanity-sync] Invalid SANITY_DATASET value (length=${dataset.length}). ` +
+        "Expected lowercase letters, numbers, underscores and dashes, optional leading ~, max 64 chars."
+    );
+    process.exit(1);
+}
 
 const query = `*[_type == "insightArticle" && defined(slug.current) && !(_id in path("drafts.**"))] | order(publishedAt desc) {
   title,
@@ -216,6 +234,14 @@ async function pruneStaleSanityFiles(keepSlugs) {
 
 async function run() {
     await mkdir(outputDir, { recursive: true });
+
+    const client = createClient({
+        projectId,
+        dataset,
+        apiVersion,
+        token,
+        useCdn: false,
+    });
 
     const items = await client.fetch(query);
     if (!Array.isArray(items) || items.length === 0) {
