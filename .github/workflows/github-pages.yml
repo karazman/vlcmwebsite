@@ -4,6 +4,8 @@ on:
   push:
     branches: ["main", "master"]
   workflow_dispatch:
+  repository_dispatch:
+    types: [sanity-publish]
 
 permissions:
   contents: read
