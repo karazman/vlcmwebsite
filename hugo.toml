@@ -6,11 +6,6 @@ enableRobotsTXT = true
 publishDir = "dist"
 disableKinds = ["taxonomy", "term"]
 
-[outputs]
-  home = ["HTML", "RSS", "SITEMAP"]
-  section = ["HTML", "RSS"]
-  page = ["HTML"]
-
 [params]
   description = "VL Capital Management is a specialist liquidity provider that buys creditor claims against distressed exchanges, lending platforms, and insolvent estates — giving claimants immediate capital."
   brand = "VL Capital Management"

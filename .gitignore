@@ -4,3 +4,4 @@ node_modules/
 .env.*.local
 .npm-cache/
 .hugo_build.lock
+dist/
