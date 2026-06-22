@@ -3,7 +3,6 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import dotenv from "dotenv";
 import { createClient } from "@sanity/client";
-import { toMarkdown } from "@portabletext/to-markdown";
 
 dotenv.config({ path: ".env.local" });
 dotenv.config();
@@ -81,12 +80,114 @@ function yamlArray(value) {
     return `[${value.map((item) => q(item)).join(", ")}]`;
 }
 
+function escapeMarkdown(text) {
+    return String(text || "").replace(/([*_`[\]<>])/g, "\\$1");
+}
+
+function applyMarks(text, marks, markDefs) {
+    let out = escapeMarkdown(text);
+    for (const mark of marks || []) {
+        if (mark === "strong") {
+            out = `**${out}**`;
+            continue;
+        }
+
+        if (mark === "em") {
+            out = `*${out}*`;
+            continue;
+        }
+
+        if (mark === "code") {
+            out = `\`${String(text || "").replace(/`/g, "\\`")}\``;
+            continue;
+        }
+
+        const def = (markDefs || []).find((item) => item?._key === mark);
+        if (def?.href) {
+            out = `[${out}](${def.href})`;
+        }
+    }
+
+    return out;
+}
+
+function blockStylePrefix(style) {
+    if (style === "h1") return "# ";
+    if (style === "h2") return "## ";
+    if (style === "h3") return "### ";
+    if (style === "h4") return "#### ";
+    if (style === "blockquote") return "> ";
+    return "";
+}
+
 function toBodyMarkdown(body) {
     if (!Array.isArray(body)) {
         return "";
     }
 
-    return toMarkdown(body).trim();
+    const lines = [];
+    let currentListType = "";
+    let currentListLevel = 0;
+    let listIndex = 1;
+
+    for (const block of body) {
+        if (!block || block._type !== "block") {
+            continue;
+        }
+
+        const listType = block.listItem || "";
+        const level = Number(block.level || 1);
+        const isList = Boolean(listType);
+
+        if (!isList && currentListType) {
+            lines.push("");
+            currentListType = "";
+            currentListLevel = 0;
+            listIndex = 1;
+        }
+
+        const text = (block.children || [])
+            .map((child) => {
+                if (child?._type !== "span") {
+                    return "";
+                }
+                return applyMarks(child.text || "", child.marks || [], block.markDefs || []);
+            })
+            .join("")
+            .trim();
+
+        if (!text) {
+            continue;
+        }
+
+        if (isList) {
+            const indent = "  ".repeat(Math.max(level - 1, 0));
+            if (currentListType !== listType || currentListLevel !== level) {
+                listIndex = 1;
+            }
+
+            if (listType === "number") {
+                lines.push(`${indent}${listIndex}. ${text}`);
+                listIndex += 1;
+            } else {
+                lines.push(`${indent}- ${text}`);
+            }
+
+            currentListType = listType;
+            currentListLevel = level;
+            continue;
+        }
+
+        const prefix = blockStylePrefix(block.style || "normal");
+        lines.push(`${prefix}${text}`);
+        lines.push("");
+    }
+
+    while (lines.length > 0 && lines[lines.length - 1] === "") {
+        lines.pop();
+    }
+
+    return lines.join("\n");
 }
 
 function hasSanitySource(content) {
