@@ -88,13 +88,15 @@ jobs:
             echo "ERROR: Studio output missing at ../dist/studio/index.html"
             exit 1
           fi
-          
-          echo "Rewriting asset paths in HTML..."
-          sed -i 's|href="/static/|href="/studio/static/|g; s|src="/static/|src="/studio/static/|g' ../dist/studio/index.html
-          echo "Asset path rewrite completed."
         env:
           SANITY_STUDIO_PROJECT_ID: ${{ secrets.SANITY_PROJECT_ID }}
           SANITY_STUDIO_DATASET: ${{ secrets.SANITY_DATASET }}
+
+      - name: Rewrite asset paths for /studio deployment
+        run: |
+          echo "Rewriting asset paths in HTML..."
+          node scripts/rewrite-studio-paths.js dist/studio/index.html
+          echo "Asset path rewrite completed."
 
       - name: Verify Studio is included in dist
         shell: bash
