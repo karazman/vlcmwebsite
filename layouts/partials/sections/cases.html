@@ -1,0 +1,30 @@
+{{/* Params: limit (int, optional), showHeading (bool, default true) */}}
+{{ $cases := where site.RegularPages "Section" "cases" }}
+{{ $cases = sort $cases "Params.year" "asc" }}
+{{ if .limit }}{{ $cases = first .limit $cases }}{{ end }}
+<section class="cases">
+    <div class="container">
+        {{ if ne .showHeading false }}
+        <div class="section-head reveal">
+            <p class="eyebrow">Cases</p>
+            <h2>Selected engagements we've worked on</h2>
+            <p class="section-sub">We provide liquidity to creditors of distressed platforms, turning frozen claims into
+                upfront recovery.</p>
+        </div>
+        {{ end }}
+        <div class="cases-grid">
+            {{ range $cases }}
+            <article class="case-card reveal">
+                <div class="case-head">
+                    <span class="case-tag">{{ .Params.tag }}</span>
+                    <span class="case-year">{{ .Params.year }}</span>
+                </div>
+                <h3>{{ .Title }}</h3>
+                <p>{{ .Params.summary }}</p>
+                <p class="case-result"><span aria-hidden="true">✓</span> {{ .Params.result }}</p>
+                <a class="case-link" href="{{ .RelPermalink }}">Read the case →</a>
+            </article>
+            {{ end }}
+        </div>
+    </div>
+</section>

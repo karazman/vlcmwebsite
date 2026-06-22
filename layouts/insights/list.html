@@ -1,0 +1,84 @@
+{{ define "main" }}
+{{ partial "page-header.html" . }}
+<section class="prose-section">
+    <div class="container">
+        {{ $pages := .Pages.ByDate.Reverse }}
+        {{ $categories := slice }}
+        {{ range $pages }}
+        {{ with .Params.category }}
+        {{ if not (in $categories .) }}
+        {{ $categories = $categories | append . }}
+        {{ end }}
+        {{ end }}
+        {{ end }}
+        {{ $categories = sort $categories }}
+
+        <div class="insights-hub" data-insights-hub>
+            <div class="insights-main">
+                <div class="insights-toolbar reveal">
+                    <label class="insights-search" for="insights-search">Search</label>
+                    <input id="insights-search" class="insights-search-input" type="search"
+                        placeholder="Search by title, excerpt or tag" data-insights-search>
+                    <div class="insights-categories" data-insights-categories>
+                        <button class="insight-pill is-active" type="button" data-category="all">All</button>
+                        {{ range $categories }}
+                        <button class="insight-pill" type="button" data-category="{{ . | lower }}">{{ . }}</button>
+                        {{ end }}
+                    </div>
+                    <p class="insights-result-count" data-insights-count></p>
+                </div>
+
+                <div class="insights-grid" data-insights-grid>
+                    {{ range $pages }}
+                    {{ $page := . }}
+                    {{ $category := $page.Params.category | default "General" }}
+                    {{ $tags := $page.Params.tags | default (slice) }}
+                    <article class="insight-card reveal js-insight-card" data-category="{{ $category | lower }}"
+                        data-title="{{ $page.Title | lower }}" data-excerpt="{{ ($page.Params.excerpt | default $page.Params.summary | default $page.Summary) | plainify | lower }}"
+                        data-tags="{{ delimit $tags "," | lower }}">
+                        {{ with $page.Params.coverImage }}
+                        <img class="insight-cover" src="{{ . }}" alt="{{ $page.Params.coverImageAlt | default $page.Title }}" loading="lazy">
+                        {{ end }}
+                        <div class="insight-meta-row">
+                            <span class="insight-date">{{ $page.Date.Format "Jan 2, 2006" }}</span>
+                            <span class="insight-reading">{{ $page.ReadingTime }} min read</span>
+                        </div>
+                        <h3><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h3>
+                        <p>{{ $page.Params.excerpt | default $page.Params.summary | default $page.Summary }}</p>
+                        <div class="insight-taxonomy">
+                            <span class="insight-chip">{{ $category }}</span>
+                            {{ range first 3 $tags }}
+                            <span class="insight-chip is-muted">{{ . }}</span>
+                            {{ end }}
+                        </div>
+                        <a class="case-link" href="{{ $page.RelPermalink }}">Read more →</a>
+                    </article>
+                    {{ else }}
+                    <p>No insights published yet.</p>
+                    {{ end }}
+                </div>
+
+                {{ if gt (len $pages) 6 }}
+                <div class="insights-actions">
+                    <button class="btn btn-primary" type="button" data-insights-load-more data-initial-count="6">Load more</button>
+                </div>
+                {{ end }}
+            </div>
+
+            <aside class="insights-sidebar reveal">
+                <h3>Latest Articles</h3>
+                <ul class="latest-list">
+                    {{ range first 5 $pages }}
+                    <li>
+                        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                        <span>{{ .Date.Format "Jan 2, 2006" }}</span>
+                    </li>
+                    {{ end }}
+                </ul>
+                <a class="btn btn-dark" href="{{ `/contact/` | relURL }}">Get a Quote</a>
+            </aside>
+        </div>
+    </div>
+</section>
+{{ partial "sections/contact.html" . }}
+{{ end }}

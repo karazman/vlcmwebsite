@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="{{ or site.Language.Lang `en` }}">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {{ $isInsight := and .IsPage (eq .Section "insights") }}
+    {{ $metaTitle := site.Title }}
+    {{ if .IsHome }}
+    {{ $metaTitle = site.Title }}
+    {{ else if and $isInsight .Params.seoTitle }}
+    {{ $metaTitle = .Params.seoTitle }}
+    {{ else }}
+    {{ $metaTitle = printf "%s · %s" .Title site.Params.brand }}
+    {{ end }}
+    {{ $metaDescription := site.Params.description }}
+    {{ with .Params.seoDescription }}{{ $metaDescription = . }}{{ end }}
+    {{ if not $metaDescription }}{{ with .Params.excerpt }}{{ $metaDescription = . }}{{ end }}{{ end }}
+    {{ if not $metaDescription }}{{ with .Params.summary }}{{ $metaDescription = . }}{{ end }}{{ end }}
+    {{ if not $metaDescription }}{{ with .Description }}{{ $metaDescription = . }}{{ end }}{{ end }}
+    {{ $canonical := .Permalink }}
+    {{ $ogImage := "" }}
+    {{ with .Params.coverImage }}
+    {{ if hasPrefix . "http" }}
+    {{ $ogImage = . }}
+    {{ else }}
+    {{ $ogImage = . | absURL }}
+    {{ end }}
+    {{ end }}
+    <title>{{ $metaTitle }}</title>
+    <meta name="description" content="{{ $metaDescription }}">
+    <link rel="canonical" href="{{ $canonical }}">
+    <meta name="robots" content="index,follow">
+    <meta property="og:site_name" content="{{ site.Params.brand }}">
+    <meta property="og:title" content="{{ $metaTitle }}">
+    <meta property="og:description" content="{{ $metaDescription }}">
+    <meta property="og:url" content="{{ $canonical }}">
+    <meta property="og:type" content="{{ if $isInsight }}article{{ else }}website{{ end }}">
+    {{ with $ogImage }}<meta property="og:image" content="{{ . }}">{{ end }}
+    <meta name="twitter:card" content="{{ if $ogImage }}summary_large_image{{ else }}summary{{ end }}">
+    <meta name="twitter:title" content="{{ $metaTitle }}">
+    <meta name="twitter:description" content="{{ $metaDescription }}">
+    {{ with $ogImage }}<meta name="twitter:image" content="{{ . }}">{{ end }}
+    {{ if $isInsight }}
+    {{ $articleSchema := dict
+    "@context" "https://schema.org"
+    "@type" "Article"
+    "headline" .Title
+    "description" $metaDescription
+    "datePublished" (.Date.Format "2006-01-02T15:04:05Z07:00")
+    "dateModified" (.Lastmod.Format "2006-01-02T15:04:05Z07:00")
+    "mainEntityOfPage" (dict "@type" "WebPage" "@id" $canonical)
+    "author" (dict "@type" "Person" "name" (.Params.author | default site.Params.brand))
+    "publisher" (dict "@type" "Organization" "name" site.Params.brand)
+    }}
+    {{ if $ogImage }}{{ $articleSchema = merge $articleSchema (dict "image" (slice $ogImage)) }}{{ end }}
+    <script type="application/ld+json">{{ $articleSchema | jsonify | safeJS }}</script>
+    {{ end }}
+    <link rel="icon" type="image/svg+xml" href="{{ `/favicon.svg` | relURL }}">
+    <link rel="apple-touch-icon" href="{{ `/favicon.svg` | relURL }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    {{ with resources.Get "css/main.css" }}
+    {{ if hugo.IsServer }}
+    <link rel="stylesheet" href="{{ .RelPermalink }}">
+    {{ else }}
+    {{ with . | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}">
+    {{ end }}
+    {{ end }}
+    {{ end }}
+</head>
+
+<body>
+    {{ partial "header.html" . }}
+    <main>
+        {{ block "main" . }}{{ end }}
+    </main>
+    {{ partial "footer.html" . }}
+    {{ $js := resources.Get "js/main.js" }}
+    {{ with $js }}
+    <script src="{{ .RelPermalink }}" defer></script>{{ end }}
+</body>
+
+</html>

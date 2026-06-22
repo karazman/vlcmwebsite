@@ -1,0 +1,16 @@
+{
+    "name": "phoenix-content-sync",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "sanity:sync-insights": "node scripts/sync-insights-from-sanity.mjs",
+        "prebuild": "npm run sanity:sync-insights",
+        "build": "hugo --gc --minify",
+        "dev": "hugo server -D"
+    },
+    "dependencies": {
+        "@portabletext/to-markdown": "^3.0.0",
+        "@sanity/client": "^7.7.0",
+        "dotenv": "^16.6.1"
+    }
+}

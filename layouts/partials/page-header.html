@@ -1,0 +1,8 @@
+<section class="page-header">
+    <div class="page-header-bg" aria-hidden="true"></div>
+    <div class="container">
+        {{ with .Params.eyebrow }}<p class="eyebrow reveal">{{ . }}</p>{{ end }}
+        <h1 class="reveal">{{ .Title }}</h1>
+        {{ with .Params.lead }}<p class="page-lead reveal">{{ . }}</p>{{ end }}
+    </div>
+</section>

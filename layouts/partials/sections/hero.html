@@ -1,0 +1,25 @@
+{{ $d := index hugo.Data "site" }}
+<section class="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="container hero-inner">
+        <p class="eyebrow reveal">{{ $d.hero.eyebrow }}</p>
+        <h1 class="hero-title reveal">{{ $d.hero.heading }}</h1>
+        <p class="hero-sub reveal">{{ $d.hero.subheading }}</p>
+        <div class="hero-actions reveal">
+            <a class="btn btn-primary" href="{{ `/contact/` | relURL }}">{{ $d.hero.primaryCta }}</a>
+            <a class="btn btn-ghost" href="{{ `/strategy/` | relURL }}">{{ $d.hero.secondaryCta }} →</a>
+        </div>
+    </div>
+    <div class="hero-ticker" aria-hidden="true">
+        <div class="ticker-track">
+            <span class="ticker-item">S&amp;P 500 ▲ 1.24%</span>
+            <span class="ticker-item">NASDAQ ▲ 0.98%</span>
+            <span class="ticker-item">GOLD ▲ 0.42%</span>
+            <span class="ticker-item">EUR/USD ▼ 0.11%</span>
+            <span class="ticker-item">BTC ▲ 2.65%</span>
+            <span class="ticker-item">10Y ▼ 0.03%</span>
+            <span class="ticker-item">FTSE ▲ 0.57%</span>
+            <span class="ticker-item">NIKKEI ▲ 1.10%</span>
+        </div>
+    </div>
+</section>

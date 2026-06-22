@@ -1,0 +1,87 @@
+title = "VL Capital Management"
+
+[hero]
+  eyebrow = "Liquidity Provider"
+  heading = "Turn frozen claims into capital today."
+  subheading = "VL Capital Management provides immediate liquidity to creditors of distressed platforms — and flexible working-capital liquidity to businesses that need funding fast."
+  primaryCta = "Get a quote"
+  primaryUrl = "#contact"
+  secondaryCta = "How it works"
+  secondaryUrl = "#approach"
+
+[about]
+  eyebrow = "Who we are"
+  heading = "A liquidity partner — for creditors and for businesses"
+  body = "VL Capital Management is a specialist liquidity provider. When platforms freeze withdrawals or enter insolvency, we buy creditor claims at a fair, transparent price — giving claimants immediate capital instead of a multi-year wait. We also provide working-capital and bridge liquidity to businesses, underwriting the risk so you can move fast."
+
+[[stats]]
+  value = "$300M+"
+  label = "Claims acquired"
+[[stats]]
+  value = "15+"
+  label = "Distressed estates covered"
+[[stats]]
+  value = "48 hrs"
+  label = "Typical quote turnaround"
+[[stats]]
+  value = "2,500+"
+  label = "Creditors served"
+
+[[solutions]]
+  icon = "💧"
+  title = "Claim Purchases"
+  body = "We buy your claim against a distressed exchange, lender, or estate — across crypto and traditional institutions — converting it into upfront cash."
+[[solutions]]
+  icon = "🏢"
+  title = "Business Liquidity"
+  body = "Beyond distressed claims, we provide working-capital and bridge liquidity to businesses that need fast, flexible funding."
+[[solutions]]
+  icon = "⚡"
+  title = "Immediate Liquidity"
+  body = "Receive capital in days, not years, without waiting for lengthy bankruptcy or restructuring proceedings."
+[[solutions]]
+  icon = "🛡️"
+  title = "Risk Transfer"
+  body = "We absorb the downside of the estate's outcome. Once your claim is sold, your recovery is certain."
+[[solutions]]
+  icon = "🔍"
+  title = "Transparent Valuation"
+  body = "Independent due diligence and clear, fair pricing on every claim — no hidden fees or surprises."
+[[solutions]]
+  icon = "🤝"
+  title = "Confidential Process"
+  body = "A discreet, streamlined process handled end to end by our team, for creditors and businesses alike."
+
+[[approach]]
+  step = "01"
+  title = "Submit"
+  body = "Tell us about your claim — the platform, amount, and supporting documentation."
+[[approach]]
+  step = "02"
+  title = "Value"
+  body = "We conduct independent due diligence on the estate and return a fair, transparent quote."
+[[approach]]
+  step = "03"
+  title = "Agree"
+  body = "Accept the offer and we handle the claims-transfer paperwork end to end."
+[[approach]]
+  step = "04"
+  title = "Get paid"
+  body = "Receive your capital quickly — typically within days of signing."
+
+[[team]]
+  name = "Eleanor Marsh"
+  role = "Managing Partner"
+  initials = "EM"
+[[team]]
+  name = "Daniel Okafor"
+  role = "Head of Underwriting"
+  initials = "DO"
+[[team]]
+  name = "Sofia Russo"
+  role = "Head of Claims Acquisition"
+  initials = "SR"
+[[team]]
+  name = "Marcus Chen"
+  role = "Chief Risk Officer"
+  initials = "MC"

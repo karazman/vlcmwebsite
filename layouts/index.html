@@ -1,0 +1,11 @@
+{{ define "main" }}
+{{ partial "sections/hero.html" . }}
+{{ partial "sections/stats.html" . }}
+{{ partial "sections/about.html" . }}
+{{ partial "sections/solutions.html" . }}
+{{ partial "sections/cases.html" (dict "limit" 3) }}
+<div class="section-cta">
+    <a class="btn btn-primary" href="{{ `/cases/` | relURL }}">View all cases →</a>
+</div>
+{{ partial "sections/contact.html" . }}
+{{ end }}

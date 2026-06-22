@@ -1,0 +1,67 @@
+{{ define "main" }}
+{{ partial "page-header.html" . }}
+<section class="prose-section">
+    <div class="container insight-article-wrap">
+        <div class="insight-article-main">
+            {{ with .Params.coverImage }}
+            <img class="insight-article-cover" src="{{ . }}" alt="{{ $.Params.coverImageAlt | default $.Title }}">
+            {{ end }}
+            <div class="case-meta">
+                <span class="case-year">{{ .Date.Format "January 2, 2006" }}</span>
+                {{ with .Params.author }}<span class="case-result-inline">{{ . }}</span>{{ end }}
+                <span class="case-result-inline">{{ .ReadingTime }} min read</span>
+            </div>
+            <div class="insight-taxonomy insight-taxonomy-single">
+                {{ with .Params.category }}<span class="insight-chip">{{ . }}</span>{{ end }}
+                {{ range .Params.tags }}<span class="insight-chip is-muted">{{ . }}</span>{{ end }}
+            </div>
+            <div class="prose">{{ .Content }}</div>
+            <div class="insight-share">
+                {{ $url := .Permalink | urlquery }}
+                {{ $title := .Title | urlquery }}
+                <span>Share:</span>
+                <a class="insight-share-btn" href="https://www.linkedin.com/sharing/share-offsite/?url={{ $url }}" target="_blank"
+                    rel="noopener noreferrer">LinkedIn</a>
+                <a class="insight-share-btn" href="https://twitter.com/intent/tweet?url={{ $url }}&text={{ $title }}" target="_blank"
+                    rel="noopener noreferrer">X</a>
+                <a class="insight-share-btn" href="mailto:?subject={{ $title }}&body={{ $url }}">Email</a>
+            </div>
+            <a class="btn btn-primary" href="{{ `/contact/` | relURL }}">Get a Quote</a>
+        </div>
+
+        <aside class="insight-article-aside">
+            {{ if .TableOfContents }}
+            <div class="insight-side-card">
+                <h3>Contents</h3>
+                <div class="insight-toc">{{ .TableOfContents }}</div>
+            </div>
+            {{ end }}
+            {{ $all := where site.RegularPages "Section" "insights" }}
+            {{ $related := where (where $all "RelPermalink" "ne" .RelPermalink) "Params.category" .Params.category }}
+            {{ if lt (len $related) 3 }}
+            {{ range .Params.tags }}
+            {{ $tagMatches := where $all "Params.tags" "intersect" (slice .) }}
+            {{ $related = union $related $tagMatches }}
+            {{ end }}
+            {{ $related = where $related "RelPermalink" "ne" .RelPermalink }}
+            {{ end }}
+            {{ $related = first 3 (sort $related "Date" "desc") }}
+            {{ if gt (len $related) 0 }}
+            <div class="insight-side-card">
+                <h3>Related Articles</h3>
+                <ul class="latest-list">
+                    {{ range $related }}
+                    <li>
+                        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                        <span>{{ .Date.Format "Jan 2, 2006" }}</span>
+                    </li>
+                    {{ end }}
+                </ul>
+            </div>
+            {{ end }}
+            <a class="btn btn-dark" href="{{ `/insights/` | relURL }}">← All insights</a>
+        </aside>
+    </div>
+</section>
+{{ partial "sections/contact.html" . }}
+{{ end }}
