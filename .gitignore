@@ -1,7 +1,9 @@
 node_modules/
+studio/node_modules/
 .env
 .env.local
 .env.*.local
 .npm-cache/
 .hugo_build.lock
 dist/
+static/studio/

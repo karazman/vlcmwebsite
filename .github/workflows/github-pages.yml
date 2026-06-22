@@ -35,10 +35,19 @@ jobs:
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Install dependencies
+      - name: Install root dependencies
         run: npm install
 
-      - name: Build site
+      - name: Install and build Sanity Studio
+        working-directory: studio
+        run: |
+          npm install
+          npm run build
+        env:
+          SANITY_STUDIO_PROJECT_ID: ${{ secrets.SANITY_PROJECT_ID }}
+          SANITY_STUDIO_DATASET: ${{ secrets.SANITY_DATASET }}
+
+      - name: Build Hugo site
         run: npm run build
         env:
           SANITY_PROJECT_ID: ${{ secrets.SANITY_PROJECT_ID }}

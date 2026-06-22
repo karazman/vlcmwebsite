@@ -48,19 +48,19 @@ if (!datasetPattern.test(dataset)) {
     process.exit(1);
 }
 
-const query = `*[_type == "insightArticle" && defined(slug.current) && !(_id in path("drafts.**"))] | order(publishedAt desc) {
+const query = `*[_type == "post" && defined(slug.current) && !(_id in path("drafts.**"))] | order(publishedAt desc) {
   title,
   "slug": slug.current,
   excerpt,
   "coverImage": coverImage.asset->url,
   "coverImageAlt": coverImage.alt,
-  author,
-  publishedAt,
-  category,
+  "author": author->name,
+  "category": category->title,
   tags,
-  body
-  ,seoTitle
-  ,seoDescription
+  publishedAt,
+  body,
+  seoTitle,
+  seoDescription
 }`;
 
 function sanitizeSlug(input) {
