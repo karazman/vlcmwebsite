@@ -2,10 +2,10 @@ name: Deploy GitHub Pages
 
 on:
   push:
-    branches: ["main", "master"]
+    branches: ["main"]
   workflow_dispatch:
   repository_dispatch:
-    types: [sanity-publish]
+    types: [sanity_publish]
 
 permissions:
   contents: read
