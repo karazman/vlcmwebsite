@@ -33,6 +33,7 @@ jobs:
           extended: true
 
       - name: Configure GitHub Pages
+        id: pages
         uses: actions/configure-pages@v5
 
       - name: Install root dependencies
@@ -50,6 +51,7 @@ jobs:
       - name: Build Hugo site
         run: npm run build
         env:
+          HUGO_BASEURL: ${{ steps.pages.outputs.base_url }}
           SANITY_PROJECT_ID: ${{ secrets.SANITY_PROJECT_ID }}
           SANITY_DATASET: ${{ secrets.SANITY_DATASET }}
           SANITY_API_VERSION: ${{ secrets.SANITY_API_VERSION }}
