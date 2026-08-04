@@ -8,7 +8,7 @@
     {{ $metaTitle := site.Title }}
     {{ if .IsHome }}
     {{ $metaTitle = site.Title }}
-    {{ else if and $isInsight .Params.seoTitle }}
+    {{ else if .Params.seoTitle }}
     {{ $metaTitle = .Params.seoTitle }}
     {{ else }}
     {{ $metaTitle = printf "%s · %s" .Title site.Params.brand }}
@@ -29,6 +29,7 @@
     {{ end }}
     <title>{{ $metaTitle }}</title>
     <meta name="description" content="{{ $metaDescription }}">
+    {{ with .Params.seoKeywords }}<meta name="keywords" content="{{ delimit . ", " }}">{{ end }}
     <link rel="canonical" href="{{ $canonical }}">
     <meta name="robots" content="index,follow">
     <meta property="og:site_name" content="{{ site.Params.brand }}">

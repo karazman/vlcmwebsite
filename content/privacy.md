@@ -25,10 +25,10 @@ We do not sell your personal information. We may share it with service providers
 
 ## Your rights
 
-Depending on your jurisdiction, you may have the right to access, correct, or delete your personal information. To exercise these rights, contact us at [austin@phoenixtf.co.uk](mailto:austin@phoenixtf.co.uk).
+Depending on your jurisdiction, you may have the right to access, correct, or delete your personal information. To exercise these rights, contact us at [austin@vl-cm.com](mailto:austin@vl-cm.com).
 
 ## Contact
 
-For privacy questions, email [austin@phoenixtf.co.uk](mailto:austin@phoenixtf.co.uk).
+For privacy questions, email [austin@vl-cm.com](mailto:austin@vl-cm.com).
 
 *Last updated: 2026.*

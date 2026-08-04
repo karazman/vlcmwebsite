@@ -22,6 +22,6 @@ Certain statements may be forward-looking. Actual results may differ materially 
 
 ## Contact
 
-For questions regarding this notice, contact us at [austin@phoenixtf.co.uk](mailto:austin@phoenixtf.co.uk).
+For questions regarding this notice, contact us at [austin@vl-cm.com](mailto:austin@vl-cm.com).
 
 *Last updated: 2026.*

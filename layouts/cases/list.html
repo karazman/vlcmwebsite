@@ -1,6 +1,14 @@
 {{ define "main" }}
 {{ partial "page-header.html" . }}
 {{ partial "sections/cases.html" (dict "showHeading" false) }}
+<section class="prose-section">
+    <div class="container case-detail">
+        <p class="eyebrow">New intake</p>
+        <h2>We are actively helping Coldcard victims.</h2>
+        <p>If you noticed an unauthorized bitcoin movement, submit a confidential incident report so comparable patterns can be reviewed and we can follow up with practical next steps.</p>
+        <p><a class="btn btn-primary" href="{{ `/coldcard-claimants/` | relURL }}">Open Coldcard Intake →</a></p>
+    </div>
+</section>
 {{ if .Content }}
 <section class="prose-section">
     <div class="container prose">{{ .Content }}</div>

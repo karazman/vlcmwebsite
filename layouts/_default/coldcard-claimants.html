@@ -1,0 +1,242 @@
+{{ define "main" }}
+{{ $coldcardWebPage := dict
+"@context" "https://schema.org"
+"@type" "WebPage"
+"name" "Coldcard Claimants Intake"
+"url" .Permalink
+"description" (.Params.seoDescription | default .Description)
+"inLanguage" "en"
+"isPartOf" (dict "@type" "WebSite" "name" site.Title "url" site.BaseURL)
+"publisher" (dict "@type" "Organization" "name" site.Params.brand)
+}}
+{{ $coldcardFaq := dict
+"@context" "https://schema.org"
+"@type" "FAQPage"
+"mainEntity" (slice
+    (dict "@type" "Question" "name" "Who should complete this intake?" "acceptedAnswer" (dict "@type" "Answer" "text" "Anyone who believes they suffered an unauthorized transfer involving a COLDCARD device and wants their report considered in a broader pattern review."))
+    (dict "@type" "Question" "name" "Is this affiliated with Coinkite or COLDCARD?" "acceptedAnswer" (dict "@type" "Answer" "text" "No. This is an independent intake operated by VL Capital Management."))
+    (dict "@type" "Question" "name" "Does submitting create a legal relationship?" "acceptedAnswer" (dict "@type" "Answer" "text" "No. Submitting this form does not create legal representation, investment advice, or a guaranteed claim outcome."))
+    (dict "@type" "Question" "name" "What happens to my information?" "acceptedAnswer" (dict "@type" "Answer" "text" "Submissions are used for incident assessment, group pattern analysis, and direct follow-up where relevant."))
+)
+}}
+<script type="application/ld+json">{{ $coldcardWebPage | jsonify | safeJS }}</script>
+<script type="application/ld+json">{{ $coldcardFaq | jsonify | safeJS }}</script>
+<section class="claim-hero">
+    <div class="claim-hero-bg" aria-hidden="true"></div>
+    <div class="container claim-hero-inner">
+        <p class="claim-kicker reveal">Independent claimant intake</p>
+        <h1 class="reveal">Report your Coldcard incident confidentially.</h1>
+        <p class="claim-hero-lead reveal">If your bitcoin moved without authorization, submit the core facts so patterns can be reviewed across timelines, transactions, and device context.</p>
+        <div class="claim-hero-actions reveal">
+            <a class="btn btn-primary" href="#intake">Start intake</a>
+            <a class="btn btn-ghost" href="#how-it-works">See how it works</a>
+        </div>
+        <p class="claim-hero-alert reveal">Never share a seed phrase, private key, PIN, wallet password, or recovery words.</p>
+        <div class="claim-signal-grid reveal">
+            <article class="claim-signal-card">
+                <span>01</span>
+                <h3>Approximate BTC loss</h3>
+                <p>Provide an estimate to support case grouping.</p>
+            </article>
+            <article class="claim-signal-card">
+                <span>02</span>
+                <h3>Transaction hash</h3>
+                <p>Public blockchain references help compare incidents.</p>
+            </article>
+            <article class="claim-signal-card">
+                <span>03</span>
+                <h3>Device and timeline</h3>
+                <p>Model details and date noticed can reveal clusters.</p>
+            </article>
+            <article class="claim-signal-card">
+                <span>04</span>
+                <h3>Contact details</h3>
+                <p>Only used for follow-up on relevant updates.</p>
+            </article>
+        </div>
+        <p class="claim-hero-disclaimer reveal">No wallet access requested. No upfront fee. No guarantee of recovery.</p>
+    </div>
+</section>
+
+<section class="claim-incident">
+    <div class="container claim-incident-inner reveal">
+        <p class="eyebrow">Incident context</p>
+        <h2>What happened?</h2>
+        <p>Coinkite's published security advisories state that affected firmware versions used an unintended randomness path during seed generation. In plain terms, some seeds may have had materially lower entropy than intended.</p>
+        <p>Users have reported unauthorized on-chain movements from impacted wallets. Based on currently published technical analysis, this appears consistent with seed-predictability risk in affected configurations, rather than ordinary user mistakes alone.</p>
+        <p>Our intake is designed to help Coldcard victims document timelines, transaction evidence, and device context in a structured format so patterns can be reviewed and participants can receive coordinated updates.</p>
+    </div>
+</section>
+
+<section class="claim-process" id="how-it-works">
+    <div class="container">
+        <div class="section-head">
+            <p class="eyebrow reveal">A clearer record</p>
+            <h2 class="reveal">From individual reports to a coordinated picture.</h2>
+            <p class="section-sub reveal">A single report can be dismissed. Structured, comparable reports can help identify shared patterns and possible next steps.</p>
+        </div>
+        <div class="claim-process-grid">
+            <article class="claim-process-step reveal">
+                <span class="step-num">01</span>
+                <h3>Report</h3>
+                <p>Share what happened, when it happened, and the transaction data you can verify publicly.</p>
+            </article>
+            <article class="claim-process-step reveal">
+                <span class="step-num">02</span>
+                <h3>Review</h3>
+                <p>We compare submissions for common timelines, transfer patterns, and device circumstances.</p>
+            </article>
+            <article class="claim-process-step reveal">
+                <span class="step-num">03</span>
+                <h3>Connect</h3>
+                <p>If appropriate, participants receive coordinated updates on practical options and next actions.</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="claim-safety">
+    <div class="container claim-safety-grid">
+        <div class="claim-safety-copy reveal">
+            <p class="eyebrow">Before you begin</p>
+            <h2>Bring public evidence. Keep private secrets private.</h2>
+            <p>A transaction hash is public blockchain data. Secret wallet credentials are not. Please only send what is needed to understand the incident.</p>
+        </div>
+        <div class="claim-safety-lists reveal">
+            <div class="claim-list-card claim-list-card-ok">
+                <h3>OK to include</h3>
+                <ul>
+                    <li>Transaction hash or transaction ID</li>
+                    <li>Approximate amount lost</li>
+                    <li>Date you first noticed the loss</li>
+                    <li>COLDCARD model and setup context</li>
+                </ul>
+            </div>
+            <div class="claim-list-card claim-list-card-never">
+                <h3>Never include</h3>
+                <ul>
+                    <li>Seed or recovery phrase</li>
+                    <li>Private keys or wallet export files</li>
+                    <li>Device PIN or wallet password</li>
+                    <li>Any request to move your funds</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="claim-intake" id="intake">
+    <div class="container claim-intake-grid">
+        <div class="claim-intake-copy reveal">
+            <p class="eyebrow">Victim group intake</p>
+            <h2>Share your incident.</h2>
+            <p>Complete the form to add your report to the claimant register. We will review the information and contact you if additional details are needed.</p>
+            <p class="claim-private-note"><strong>Private intake:</strong> Your submission is sent directly to our team and is not displayed publicly.</p>
+            <p class="claim-private-note">Prefer email? <a href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a></p>
+        </div>
+        <form class="claim-form reveal" data-endpoint="https://formsubmit.co/ajax/{{ site.Params.email }}" data-subject="New Coldcard incident report - VL Capital Management" method="post" action="https://formsubmit.co/{{ site.Params.email }}">
+            <h3>Incident report</h3>
+            <div class="claim-form-grid">
+                <div class="field">
+                    <label for="incident-name">Full name *</label>
+                    <input id="incident-name" name="name" type="text" placeholder="Jane Doe" required>
+                </div>
+                <div class="field">
+                    <label for="incident-email">Email address *</label>
+                    <input id="incident-email" name="email" type="email" placeholder="jane@company.com" required>
+                </div>
+                <div class="field">
+                    <label for="incident-country">Country / region</label>
+                    <input id="incident-country" name="country" type="text" placeholder="United Kingdom">
+                </div>
+                <div class="field">
+                    <label for="incident-contact">Preferred contact</label>
+                    <select id="incident-contact" name="preferred_contact">
+                        <option>Email</option>
+                        <option>Phone</option>
+                        <option>Either</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="incident-model">COLDCARD model</label>
+                    <input id="incident-model" name="model" type="text" placeholder="Mk4 / Q / other">
+                </div>
+                <div class="field">
+                    <label for="incident-date">Date first noticed</label>
+                    <input id="incident-date" name="date_first_noticed" type="date">
+                </div>
+                <div class="field">
+                    <label for="incident-btc">Approximate BTC lost *</label>
+                    <input id="incident-btc" name="approx_btc_lost" type="text" placeholder="0.75 BTC" required>
+                </div>
+                <div class="field">
+                    <label for="incident-usd">USD value at time of loss</label>
+                    <input id="incident-usd" name="usd_value" type="text" placeholder="$45,000">
+                </div>
+            </div>
+            <div class="field">
+                <label for="incident-hash">Transaction hash(es) - optional</label>
+                <input id="incident-hash" name="tx_hashes" type="text" placeholder="Comma-separated hash list">
+            </div>
+            <div class="field">
+                <label for="incident-story">What happened? *</label>
+                <textarea id="incident-story" name="message" rows="5" placeholder="Share timeline, wallet behavior, and key details" required></textarea>
+            </div>
+            <div class="field">
+                <label for="incident-source">How did you hear about this group?</label>
+                <input id="incident-source" name="source" type="text" placeholder="X, forum, referral, legal counsel">
+            </div>
+            <label class="claim-check">
+                <input type="checkbox" name="confirm_no_secrets" required>
+                <span>I confirm I have not included a seed phrase, private key, PIN, wallet password, or recovery words.</span>
+            </label>
+            <label class="claim-check">
+                <input type="checkbox" name="consent_contact" required>
+                <span>I agree that VL Capital Management may assess this report and contact me regarding this claimant group.</span>
+            </label>
+            <button class="btn btn-primary btn-block" type="submit">Submit incident securely</button>
+            <p class="form-note" aria-live="polite">Your report is encrypted in transit and reviewed confidentially.</p>
+        </form>
+    </div>
+</section>
+
+<section class="claim-faq">
+    <div class="container">
+        <div class="section-head">
+            <p class="eyebrow reveal">Questions</p>
+            <h2 class="reveal">Before you submit.</h2>
+        </div>
+        <div class="claim-faq-list reveal">
+            <details>
+                <summary>Who should complete this intake?</summary>
+                <p>Anyone who believes they suffered an unauthorized transfer involving a COLDCARD device and wants their report considered in a broader pattern review.</p>
+            </details>
+            <details>
+                <summary>Is this affiliated with Coinkite or COLDCARD?</summary>
+                <p>No. This is an independent intake operated by VL Capital Management.</p>
+            </details>
+            <details>
+                <summary>Does submitting create a legal relationship?</summary>
+                <p>No. Submitting this form does not create legal representation, investment advice, or a guaranteed claim outcome.</p>
+            </details>
+            <details>
+                <summary>What happens to my information?</summary>
+                <p>Submissions are used for incident assessment, group pattern analysis, and direct follow-up where relevant.</p>
+            </details>
+        </div>
+    </div>
+</section>
+
+<section class="claim-close">
+    <div class="container claim-close-inner reveal">
+        <p class="eyebrow">One record at a time</p>
+        <h2>Your report may help complete the picture.</h2>
+        <p>If you'd rather write directly, contact us and include only non-sensitive details.</p>
+        <div class="claim-close-links">
+            <a href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a>
+            <a href="tel:{{ site.Params.phone }}">{{ site.Params.phone }}</a>
+        </div>
+        <p class="claim-close-note">Independent intake. Not affiliated with or endorsed by Coinkite or COLDCARD.</p>
+    </div>
+</section>
+{{ end }}

@@ -116,20 +116,21 @@ if ('IntersectionObserver' in window && revealEls.length) {
     revealEls.forEach((el) => el.classList.add('is-visible'));
 }
 
-// Contact form submit
-const quoteForm = document.querySelector('.cta-form[data-endpoint]');
-if (quoteForm) {
-    const formNote = quoteForm.querySelector('.form-note');
-    quoteForm.addEventListener('submit', async (event) => {
+// AJAX forms (contact + custom intake pages)
+document.querySelectorAll('form[data-endpoint]').forEach((ajaxForm) => {
+    const formNote = ajaxForm.querySelector('.form-note');
+
+    ajaxForm.addEventListener('submit', async (event) => {
         event.preventDefault();
         if (formNote) {
             formNote.classList.remove('is-success', 'is-error');
             formNote.textContent = 'Sending your request...';
         }
 
-        const endpoint = quoteForm.getAttribute('data-endpoint');
-        const formData = new FormData(quoteForm);
-        formData.append('_subject', 'New quote request - VL Capital Management');
+        const endpoint = ajaxForm.getAttribute('data-endpoint');
+        const subject = ajaxForm.getAttribute('data-subject') || 'New quote request - VL Capital Management';
+        const formData = new FormData(ajaxForm);
+        formData.append('_subject', subject);
         formData.append('_captcha', 'false');
 
         try {
@@ -145,7 +146,7 @@ if (quoteForm) {
                 throw new Error('Request failed');
             }
 
-            quoteForm.reset();
+            ajaxForm.reset();
             if (formNote) {
                 formNote.classList.add('is-success');
                 formNote.textContent = 'Thank you. Your request was sent successfully.';
@@ -157,7 +158,7 @@ if (quoteForm) {
             }
         }
     });
-}
+});
 
 // Insights list interactions (search, category filter, load more)
 const insightsHub = document.querySelector('[data-insights-hub]');

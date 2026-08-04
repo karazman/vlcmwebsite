@@ -11,7 +11,7 @@ disableKinds = ["taxonomy", "term"]
   brand = "VL Capital Management"
   brandShort = "VL Capital"
   tagline = "Turning frozen claims into capital."
-  email = "austin@phoenixtf.co.uk"
+  email = "austin@vl-cm.com"
   phone = "+1 (216) 496-4501"
   copyrightYear = "2026"
 
@@ -24,6 +24,10 @@ disableKinds = ["taxonomy", "term"]
     name = "Cases"
     url = "/cases/"
     weight = 30
+  [[menu.main]]
+    name = "Coldcard Intake"
+    url = "/coldcard-claimants/"
+    weight = 35
   [[menu.main]]
     name = "Insights"
     url = "/insights/"
