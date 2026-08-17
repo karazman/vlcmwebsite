@@ -1787,6 +1787,7 @@ section {
 }
 
 @media (max-width: 620px) {
+
     .claim-form-grid,
     .claim-signal-grid {
         grid-template-columns: 1fr;
