@@ -1,7 +1,7 @@
 ---
 title: "Blockfills"
 tag: "Digital Asset Brokerage"
-year: "2024"
+year: "2026"
 summary: "We gave Blockfills creditors a clear path to upfront liquidity while their claims remained tied to an uncertain recovery timeline."
 result: "Upfront liquidity option for creditors"
 eyebrow: "Case study"
