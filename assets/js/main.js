@@ -100,25 +100,28 @@ if (toggle && navList) {
     });
 }
 
-// Lazy load Calendly widget only when it comes into view
+// Preload Calendly widget after page loads for faster booking experience
 const calendlyWidget = document.querySelector('.calendly-inline-widget');
 if (calendlyWidget) {
     let calendarlyScriptLoaded = false;
     
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting && !calendarlyScriptLoaded) {
-                calendarlyScriptLoaded = true;
-                const script = document.createElement('script');
-                script.src = 'https://assets.calendly.com/assets/external/widget.js';
-                script.async = true;
-                document.body.appendChild(script);
-                observer.disconnect();
-            }
-        });
-    }, { rootMargin: '100px' });
+    const loadCalendlyScript = () => {
+        if (!calendarlyScriptLoaded) {
+            calendarlyScriptLoaded = true;
+            const script = document.createElement('script');
+            script.src = 'https://assets.calendly.com/assets/external/widget.js';
+            script.async = true;
+            document.body.appendChild(script);
+        }
+    };
     
-    observer.observe(calendlyWidget);
+    // Load Calendly after page is interactive using requestIdleCallback
+    if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => loadCalendlyScript(), { timeout: 2000 });
+    } else {
+        // Fallback for browsers without requestIdleCallback
+        setTimeout(loadCalendlyScript, 1500);
+    }
 }
 
 // Reveal on scroll
