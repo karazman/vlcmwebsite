@@ -10,8 +10,8 @@
                 <li><strong>Phone</strong> <a href="tel:{{ site.Params.phone }}">{{ site.Params.phone }}</a></li>
                 <li class="contact-schedule">
                     <strong>Schedule:</strong>
-                    <a class="contact-booking-link" href="{{ hugo.Data.site.calendlyUrl }}" target="_blank" rel="noopener noreferrer">Book a 30-minute call</a>
-                    <div class="calendly-inline-widget calendly-inline-widget--compact" data-url="{{ hugo.Data.site.calendlyUrl }}" aria-label="Schedule a 30-minute call"></div>
+                    <a class="contact-booking-link" href="{{ .Site.Data.site.calendlyUrl }}" target="_blank" rel="noopener noreferrer">Book a 30-minute call</a>
+                    <div class="calendly-inline-widget calendly-inline-widget--compact" data-url="{{ .Site.Data.site.calendlyUrl }}" aria-label="Schedule a 30-minute call"></div>
                 </li>
             </ul>
         </div>
