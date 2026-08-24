@@ -100,6 +100,27 @@ if (toggle && navList) {
     });
 }
 
+// Lazy load Calendly widget only when it comes into view
+const calendlyWidget = document.querySelector('.calendly-inline-widget');
+if (calendlyWidget) {
+    let calendarlyScriptLoaded = false;
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting && !calendarlyScriptLoaded) {
+                calendarlyScriptLoaded = true;
+                const script = document.createElement('script');
+                script.src = 'https://assets.calendly.com/assets/external/widget.js';
+                script.async = true;
+                document.body.appendChild(script);
+                observer.disconnect();
+            }
+        });
+    }, { rootMargin: '100px' });
+    
+    observer.observe(calendlyWidget);
+}
+
 // Reveal on scroll
 const revealEls = document.querySelectorAll('.reveal');
 if ('IntersectionObserver' in window && revealEls.length) {
