@@ -712,6 +712,27 @@ section {
     color: var(--gold-soft);
 }
 
+.contact-schedule {
+    display: grid;
+    grid-template-columns: 82px minmax(0, 1fr);
+    align-items: center;
+    column-gap: .75rem;
+}
+
+.contact-schedule strong {
+    width: auto;
+}
+
+.contact-booking-link {
+    color: var(--gold-soft);
+    font-size: .9rem;
+    font-weight: 600;
+}
+
+.contact-booking-link:hover {
+    color: var(--white);
+}
+
 .cta-form {
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -775,6 +796,16 @@ section {
 
 .form-note.is-error {
     color: #ffb2b2;
+}
+
+.calendly-inline-widget {
+    min-width: 320px;
+}
+
+.calendly-inline-widget--compact {
+    grid-column: 1 / -1;
+    height: 900px;
+    margin-top: 1rem;
 }
 
 /* Footer */
