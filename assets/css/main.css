@@ -817,7 +817,7 @@ section {
 
 .footer-grid {
     display: grid;
-    grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    grid-template-columns: 1.6fr repeat(4, 1fr);
     gap: 2.5rem;
     padding-bottom: 2.5rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -850,6 +850,17 @@ section {
 
 .footer-col a:hover {
     color: var(--gold-soft);
+}
+
+.footer-company-info address {
+    font-style: normal;
+    font-size: .9rem;
+    line-height: 1.55;
+}
+
+.footer-company-info strong {
+    color: var(--white);
+    font-weight: 600;
 }
 
 .footer-bottom {
