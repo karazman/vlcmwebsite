@@ -877,6 +877,10 @@ section {
     font-size: .85rem;
 }
 
+.footer-bottom address {
+    margin: 0;
+}
+
 .disclaimer {
     color: rgba(255, 255, 255, 0.4);
 }
