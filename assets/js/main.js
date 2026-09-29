@@ -157,20 +157,23 @@ document.querySelectorAll('form[data-endpoint]').forEach((ajaxForm) => {
         const endpoint = ajaxForm.getAttribute('data-endpoint');
         const subject = ajaxForm.getAttribute('data-subject') || 'New quote request - VL Capital Management';
         const formData = new FormData(ajaxForm);
-        formData.append('_subject', subject);
-        formData.append('_captcha', 'false');
+        formData.set('_subject', subject);
+        formData.set('_captcha', 'false');
+        const payload = Object.fromEntries(formData.entries());
 
         try {
             const response = await fetch(endpoint, {
                 method: 'POST',
                 headers: {
+                    'Content-Type': 'application/json',
                     Accept: 'application/json',
                 },
-                body: formData,
+                body: JSON.stringify(payload),
             });
+            const result = await response.json();
 
-            if (!response.ok) {
-                throw new Error('Request failed');
+            if (!response.ok || String(result.success).toLowerCase() !== 'true') {
+                throw new Error(result.message || `Form submission failed (${response.status})`);
             }
 
             ajaxForm.reset();
@@ -179,6 +182,7 @@ document.querySelectorAll('form[data-endpoint]').forEach((ajaxForm) => {
                 formNote.textContent = successMessage;
             }
         } catch (error) {
+            console.error('Form submission failed:', error);
             if (formNote) {
                 formNote.classList.add('is-error');
                 formNote.textContent = errorMessage;
