@@ -1,6 +1,6 @@
 {{/* Params: limit (int, optional), showHeading (bool, default true) */}}
 {{ $cases := where site.RegularPages "Section" "cases" }}
-{{ $cases = sort $cases "Params.year" "asc" }}
+{{ $cases = sort $cases "Params.year" "desc" }}
 {{ if .limit }}{{ $cases = first .limit $cases }}{{ end }}
 <section class="cases">
     <div class="container">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ or site.Language.Lang `en` }}">
+<html lang="{{ .Params.pageLanguage | default (or site.Language.Lang `en`) }}">
 
 <head>
     <meta charset="utf-8">

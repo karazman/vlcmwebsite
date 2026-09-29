@@ -1,0 +1,322 @@
+{{ define "main" }}
+{{ $poolinPage := dict
+"@context" "https://schema.org"
+"@type" "WebPage"
+"name" .Params.seoTitle
+"alternateName" (slice "Poolin creditor claims" "Poolin Technology Pte. Ltd. Chapter 11")
+"description" .Description
+"url" .Permalink
+"inLanguage" (slice "zh-Hans" "en")
+"about" (dict "@type" "Thing" "name" "Poolin Technology Pte. Ltd. Chapter 11 bankruptcy claims" "identifier" "Case No. 26-18325-EJO")
+"publisher" (dict "@type" "Organization" "name" site.Params.brand "url" site.BaseURL)
+}}
+<script type="application/ld+json">{{ $poolinPage | jsonify | safeJS }}</script>
+{{ $zh := dict
+"code" "zh"
+"htmlLang" "zh-Hans"
+"label" "简体中文"
+"kicker" "Poolin 第 11 章破产 · 案件编号 26-18325-EJO"
+"title" "您的 Poolin 债权，今天就能变现。"
+"lead" "VL Capital 以预付现金收购已获认可及表列的 Poolin 破产债权，让您无需等待漫长的清算程序。"
+"ctaPrimary" "获取债权报价"
+"ctaSecondary" "查看案件背景"
+"facts" (slice
+(dict "num" "01" "label" "债务人" "value" "Poolin Technology Pte. Ltd.")
+(dict "num" "02" "label" "案件编号" "value" "26-18325-EJO")
+(dict "num" "03" "label" "受理法院" "value" "美国新泽西州破产法院")
+(dict "num" "04" "label" "申请日期" "value" "2026 年 7 月 22 日")
+)
+"heroNote" "独立债权收购方。与 Poolin、法院或破产受托管理方无关联。"
+"overviewEyebrow" "案件背景"
+"overviewHeading" "重组概述与背景"
+"overviewLead" "本次重组直接源于 Poolin 于 2022 年 9 月的流动性危机，并在四年后进入法院监督下的资产出售程序。"
+"timeline" (slice
+(dict "date" "2022 年 9 月" "title" "流动性危机" "text" "客户提现被暂停，账户余额被按 1:1 比例强制转换为六种 ERC-20 债务代币。")
+(dict "date" "2026 年 7 月 10 日" "title" "停止运营" "text" "债务人停止自营挖矿与托管业务。")
+(dict "date" "2026 年 7 月 22 日" "title" "启动第 11 章程序" "text" "Poolin Technology Pte. Ltd. 及其两家关联公司在美国新泽西州破产法院提交第 11 章重组申请（案件编号 26-18325-EJO）。")
+(dict "date" "后续" "title" "第 363 条资产出售" "text" "在法院监督下出售核心剩余资产：位于西得克萨斯州的两处高容量电力及数字资产基础设施园区——沃德县的 Pyote 园区与佩科斯县的 Tarbush 园区。")
+)
+"tokensLabel" "被强制转换的余额"
+"tokensNote" "这些尚未兑付的代币构成了债务人表列普通无担保债权的绝大部分。"
+"meansEyebrow" "债权人须知"
+"meansHeading" "这对债权人意味着什么"
+"meansSub" "您可以在等待破产程序结束与立即变现之间自行选择。"
+"waitTitle" "继续等待破产程序"
+"waitPoints" (slice
+"在从破产财产中获得任何分配之前，需经历漫长而复杂的清算程序。"
+"资产出售仍存在交割先决条件。"
+"破产法院尚未确定正式的债权申报截止日。"
+"客户债权应按 2022 年加密资产价格水平估值，还是按已升值的申请日价值估值，仍存在法律争议，可能进一步拖长债权核定时间。"
+)
+"offerTitle" "通过 VL Capital 立即变现"
+"offerText" "对于希望立即获得流动性的债权人，VL Capital 正在以预付现金收购已获认可及表列的 Poolin 破产债权。"
+"offerPoints" (slice
+"收购已获认可及表列的债权"
+"预付现金，无需等待程序结束"
+"全程保密，咨询不构成出售承诺"
+)
+"offerCta" "获取债权报价"
+"stepsEyebrow" "操作流程"
+"stepsHeading" "三个简单步骤。"
+"stepsSub" "提交咨询不构成出售承诺，您始终掌握主动权。"
+"steps" (slice
+(dict "num" "01" "title" "提交债权信息" "text" "告知我们您持有的 IOU 代币种类与金额，以及可供核对的账户或表列记录。")
+(dict "num" "02" "title" "获取私密报价" "text" "我们完成核验后，与您私下讨论价格与交易条款。报价不会公开展示。")
+(dict "num" "03" "title" "预付现金交割" "text" "签署书面转让协议后，您即可收到预付现金，无需等待破产程序结束。")
+)
+"closeEyebrow" "下一步"
+"closeHeading" "希望获得您的债权报价？"
+"closeText" "欢迎随时与我们联系，我们将以保密方式评估您的 Poolin 债权。"
+"emailLabel" "邮箱"
+"phoneLabel" "电话"
+"formHeading" "索取债权报价"
+"formName" "姓名"
+"formNamePlaceholder" "张三"
+"formEmail" "邮箱"
+"formEmailPlaceholder" "you@example.com"
+"formTokens" "IOU 代币与金额"
+"formTokensPlaceholder" "例如：IOUBTC 1.5 / IOUUSDT 20,000"
+"formMessage" "补充信息"
+"formMessagePlaceholder" "账户信息、表列记录或其他可供核对的材料"
+"formSubmit" "提交并索取报价"
+"formNote" "我们通常在 48 小时内回复，您的信息将严格保密。"
+"msgSending" "正在发送您的请求…"
+"msgSuccess" "感谢您的提交，我们已收到您的请求。"
+"msgError" "发送失败，请直接通过邮件与我们联系。"
+}}
+{{ $en := dict
+"code" "en"
+"htmlLang" "en"
+"label" "English"
+"kicker" "Poolin Chapter 11 · Case No. 26-18325-EJO"
+"title" "Your Poolin claim. Cash today."
+"lead" "VL Capital purchases allowed and scheduled Poolin bankruptcy claims for cash upfront — without the wait of a long liquidation."
+"ctaPrimary" "Get a claim offer"
+"ctaSecondary" "Read the background"
+"facts" (slice
+(dict "num" "01" "label" "Debtor" "value" "Poolin Technology Pte. Ltd.")
+(dict "num" "02" "label" "Case number" "value" "26-18325-EJO")
+(dict "num" "03" "label" "Court" "value" "U.S. Bankruptcy Court, District of New Jersey")
+(dict "num" "04" "label" "Filing date" "value" "July 22, 2026")
+)
+"heroNote" "Independent claim buyer. Not affiliated with Poolin, the court, or the estate's administrators."
+"overviewEyebrow" "Case background"
+"overviewHeading" "Overview and Background of the Restructuring"
+"overviewLead" "The restructuring stems directly from Poolin's September 2022 liquidity crisis and now moves into a court-supervised sale of the remaining assets."
+"timeline" (slice
+(dict "date" "September 2022" "title" "Liquidity crisis" "text" "Customer withdrawals were halted and account balances were involuntarily converted at a 1:1 ratio into six ERC-20 debt tokens.")
+(dict "date" "July 10, 2026" "title" "Operations ceased" "text" "The Debtors ceased self-mining and hosting operations.")
+(dict "date" "July 22, 2026" "title" "Chapter 11 filing" "text" "Poolin Technology Pte. Ltd. and its two affiliates commenced Chapter 11 proceedings in the U.S. Bankruptcy Court for the District of New Jersey (Case No. 26-18325-EJO).")
+(dict "date" "Next" "title" "Section 363 asset sale" "text" "A court-supervised sale of the core remaining assets: two high-capacity power and digital asset infrastructure facilities in West Texas — the Pyote Site in Ward County and the Tarbush Site in Pecos County.")
+)
+"tokensLabel" "Converted balances"
+"tokensNote" "These unredeemed tokens constitute the vast majority of the Debtors' scheduled general unsecured claims."
+"meansEyebrow" "For creditors"
+"meansHeading" "What this means for creditors"
+"meansSub" "You can weigh waiting out the bankruptcy against converting your claim to cash today."
+"waitTitle" "Waiting for the estate"
+"waitPoints" (slice
+"Former users holding IOU tokens face an extended, complex liquidation process before receiving any distributions."
+"The asset sale remains subject to closing contingencies."
+"The bankruptcy court has not yet established a formal claims bar date."
+"Disputes over whether claims are valued at 2022 crypto price levels or appreciated petition-date values threaten to prolong claim reconciliation."
+)
+"offerTitle" "Liquidity with VL Capital"
+"offerText" "For creditors seeking liquidity today, VL Capital is purchasing allowed and scheduled Poolin bankruptcy claims for cash upfront."
+"offerPoints" (slice
+"Allowed and scheduled claims purchased"
+"Cash upfront, without waiting for the case to conclude"
+"Confidential — an enquiry does not commit you to a sale"
+)
+"offerCta" "Get a claim offer"
+"stepsEyebrow" "How it works"
+"stepsHeading" "Three straightforward steps."
+"stepsSub" "Registering your interest does not commit you to a sale. You stay in control."
+"steps" (slice
+(dict "num" "01" "title" "Share your claim details" "text" "Tell us which IOU tokens you hold, the amounts, and any account or scheduled record we can verify against.")
+(dict "num" "02" "title" "Receive a private offer" "text" "After our review we discuss price and terms with you privately. Offers are never displayed publicly.")
+(dict "num" "03" "title" "Get paid in cash upfront" "text" "Once a written transfer agreement is signed, you receive cash upfront instead of waiting for the case to conclude.")
+)
+"closeEyebrow" "Your next step"
+"closeHeading" "Want to receive an offer for your claim?"
+"closeText" "Reach out at your convenience and we will assess your Poolin claim confidentially."
+"emailLabel" "Email"
+"phoneLabel" "Phone"
+"formHeading" "Request a claim offer"
+"formName" "Full name"
+"formNamePlaceholder" "Jane Doe"
+"formEmail" "Email"
+"formEmailPlaceholder" "jane@company.com"
+"formTokens" "IOU tokens and amount"
+"formTokensPlaceholder" "e.g. IOUBTC 1.5 / IOUUSDT 20,000"
+"formMessage" "Additional details"
+"formMessagePlaceholder" "Account details, scheduled record, or documentation"
+"formSubmit" "Request an offer"
+"formNote" "We reply within 48 hours. Your details stay confidential."
+"msgSending" "Sending your request..."
+"msgSuccess" "Thank you. Your request was sent successfully."
+"msgError" "There was a problem sending your request. Please email us directly."
+}}
+{{ $tokens := slice "IOUBTC" "IOUETH" "IOUUSDT" "IOULTC" "IOUZEC" "IOUDOGE" }}
+{{ $langs := slice $zh $en }}
+
+<div class="lang-page" data-lang-root>
+    <div class="lang-switch-bar">
+        <div class="container lang-switch-inner">
+            <span class="lang-switch-label">语言 / Language</span>
+            <div class="lang-switch" role="group" aria-label="语言 / Language">
+                {{ range $i, $lang := $langs }}
+                <button type="button" class="lang-switch-btn{{ if eq $i 0 }} is-active{{ end }}"
+                    data-lang-btn="{{ $lang.code }}" lang="{{ $lang.htmlLang }}"
+                    aria-pressed="{{ if eq $i 0 }}true{{ else }}false{{ end }}">{{ $lang.label }}</button>
+                {{ end }}
+            </div>
+        </div>
+    </div>
+
+    {{ range $i, $lang := $langs }}
+    <div class="lang-pane" data-lang-pane="{{ $lang.code }}" lang="{{ $lang.htmlLang }}" {{ if ne $i 0 }}hidden{{ end }}>
+        <section class="claim-hero">
+            <div class="claim-hero-bg" aria-hidden="true"></div>
+            <div class="container claim-hero-inner">
+                <p class="claim-kicker reveal">{{ $lang.kicker }}</p>
+                <h1 class="reveal">{{ $lang.title }}</h1>
+                <p class="claim-hero-lead reveal">{{ $lang.lead }}</p>
+                <div class="claim-hero-actions reveal">
+                    <a class="btn btn-primary" href="#poolin-contact-{{ $lang.code }}">{{ $lang.ctaPrimary }}</a>
+                    <a class="btn btn-ghost" href="#poolin-overview-{{ $lang.code }}">{{ $lang.ctaSecondary }}</a>
+                </div>
+                <div class="claim-signal-grid reveal">
+                    {{ range $lang.facts }}
+                    <article class="claim-signal-card">
+                        <span>{{ .num }}</span>
+                        <h3>{{ .label }}</h3>
+                        <p>{{ .value }}</p>
+                    </article>
+                    {{ end }}
+                </div>
+                <p class="claim-hero-disclaimer reveal">{{ $lang.heroNote }}</p>
+            </div>
+        </section>
+
+        <section class="poolin-story" id="poolin-overview-{{ $lang.code }}">
+            <div class="container poolin-story-grid">
+                <div class="poolin-story-aside reveal">
+                    <p class="eyebrow">{{ $lang.overviewEyebrow }}</p>
+                    <h2>{{ $lang.overviewHeading }}</h2>
+                    <p class="poolin-story-lead">{{ $lang.overviewLead }}</p>
+                    <div class="poolin-tokens">
+                        <p class="poolin-tokens-label">{{ $lang.tokensLabel }}</p>
+                        <ul class="poolin-token-list">
+                            {{ range $tokens }}<li class="poolin-token">{{ . }}</li>{{ end }}
+                        </ul>
+                        <p class="poolin-tokens-note">{{ $lang.tokensNote }}</p>
+                    </div>
+                </div>
+                <ol class="poolin-timeline reveal">
+                    {{ range $lang.timeline }}
+                    <li class="poolin-timeline-item">
+                        <p class="poolin-timeline-date">{{ .date }}</p>
+                        <h3>{{ .title }}</h3>
+                        <p>{{ .text }}</p>
+                    </li>
+                    {{ end }}
+                </ol>
+            </div>
+        </section>
+
+        <section class="poolin-compare">
+            <div class="container">
+                <div class="section-head">
+                    <p class="eyebrow reveal">{{ $lang.meansEyebrow }}</p>
+                    <h2 class="reveal">{{ $lang.meansHeading }}</h2>
+                    <p class="section-sub reveal">{{ $lang.meansSub }}</p>
+                </div>
+                <div class="poolin-compare-grid">
+                    <article class="poolin-compare-card poolin-compare-card-wait reveal">
+                        <h3>{{ $lang.waitTitle }}</h3>
+                        <ul>
+                            {{ range $lang.waitPoints }}<li>{{ . }}</li>{{ end }}
+                        </ul>
+                    </article>
+                    <article class="poolin-compare-card poolin-compare-card-now reveal">
+                        <h3>{{ $lang.offerTitle }}</h3>
+                        <p>{{ $lang.offerText }}</p>
+                        <ul>
+                            {{ range $lang.offerPoints }}<li>{{ . }}</li>{{ end }}
+                        </ul>
+                        <a class="btn btn-primary poolin-compare-cta"
+                            href="#poolin-contact-{{ $lang.code }}">{{ $lang.offerCta }}</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="claim-process">
+            <div class="container">
+                <div class="section-head">
+                    <p class="eyebrow reveal">{{ $lang.stepsEyebrow }}</p>
+                    <h2 class="reveal">{{ $lang.stepsHeading }}</h2>
+                    <p class="section-sub reveal">{{ $lang.stepsSub }}</p>
+                </div>
+                <div class="claim-process-grid">
+                    {{ range $lang.steps }}
+                    <article class="claim-process-step reveal">
+                        <span class="step-num">{{ .num }}</span>
+                        <h3>{{ .title }}</h3>
+                        <p>{{ .text }}</p>
+                    </article>
+                    {{ end }}
+                </div>
+            </div>
+        </section>
+
+        <section class="claim-intake" id="poolin-contact-{{ $lang.code }}">
+            <div class="container claim-intake-grid">
+                <div class="claim-intake-copy reveal">
+                    <p class="eyebrow">{{ $lang.closeEyebrow }}</p>
+                    <h2>{{ $lang.closeHeading }}</h2>
+                    <p>{{ $lang.closeText }}</p>
+                    <p class="claim-private-note"><strong>{{ $lang.emailLabel }}</strong> <a
+                            href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a></p>
+                    <p class="claim-private-note"><strong>{{ $lang.phoneLabel }}</strong> <a
+                            href="tel:{{ site.Params.phone }}">{{ site.Params.phone }}</a></p>
+                </div>
+                <form class="claim-form reveal" data-endpoint="https://formsubmit.co/ajax/{{ site.Params.email }}"
+                    data-subject="New Poolin claim enquiry - VL Capital Management"
+                    data-msg-sending="{{ $lang.msgSending }}" data-msg-success="{{ $lang.msgSuccess }}"
+                    data-msg-error="{{ $lang.msgError }}" method="post"
+                    action="https://formsubmit.co/{{ site.Params.email }}">
+                    <h3>{{ $lang.formHeading }}</h3>
+                    <input type="hidden" name="case" value="Poolin Technology Pte. Ltd. (26-18325-EJO)">
+                    <div class="claim-form-grid">
+                        <div class="field">
+                            <label for="poolin-name-{{ $lang.code }}">{{ $lang.formName }}</label>
+                            <input id="poolin-name-{{ $lang.code }}" name="name" type="text"
+                                placeholder="{{ $lang.formNamePlaceholder }}" required>
+                        </div>
+                        <div class="field">
+                            <label for="poolin-email-{{ $lang.code }}">{{ $lang.formEmail }}</label>
+                            <input id="poolin-email-{{ $lang.code }}" name="email" type="email"
+                                placeholder="{{ $lang.formEmailPlaceholder }}" required>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="poolin-tokens-{{ $lang.code }}">{{ $lang.formTokens }}</label>
+                        <input id="poolin-tokens-{{ $lang.code }}" name="tokens" type="text"
+                            placeholder="{{ $lang.formTokensPlaceholder }}">
+                    </div>
+                    <div class="field">
+                        <label for="poolin-message-{{ $lang.code }}">{{ $lang.formMessage }}</label>
+                        <textarea id="poolin-message-{{ $lang.code }}" name="message" rows="3"
+                            placeholder="{{ $lang.formMessagePlaceholder }}"></textarea>
+                    </div>
+                    <button class="btn btn-primary btn-block" type="submit">{{ $lang.formSubmit }}</button>
+                    <p class="form-note" aria-live="polite">{{ $lang.formNote }}</p>
+                </form>
+            </div>
+        </section>
+    </div>
+    {{ end }}
+</div>
+{{ end }}

@@ -25,10 +25,6 @@ disableKinds = ["taxonomy", "term"]
     url = "/cases/"
     weight = 30
   [[menu.main]]
-    name = "Coldcard Intake"
-    url = "/coldcard-claimants/"
-    weight = 35
-  [[menu.main]]
     name = "Insights"
     url = "/insights/"
     weight = 40

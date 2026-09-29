@@ -143,12 +143,15 @@ if ('IntersectionObserver' in window && revealEls.length) {
 // AJAX forms (contact + custom intake pages)
 document.querySelectorAll('form[data-endpoint]').forEach((ajaxForm) => {
     const formNote = ajaxForm.querySelector('.form-note');
+    const sendingMessage = ajaxForm.dataset.msgSending || 'Sending your request...';
+    const successMessage = ajaxForm.dataset.msgSuccess || 'Thank you. Your request was sent successfully.';
+    const errorMessage = ajaxForm.dataset.msgError || 'There was a problem sending your request. Please email us directly.';
 
     ajaxForm.addEventListener('submit', async (event) => {
         event.preventDefault();
         if (formNote) {
             formNote.classList.remove('is-success', 'is-error');
-            formNote.textContent = 'Sending your request...';
+            formNote.textContent = sendingMessage;
         }
 
         const endpoint = ajaxForm.getAttribute('data-endpoint');
@@ -173,12 +176,12 @@ document.querySelectorAll('form[data-endpoint]').forEach((ajaxForm) => {
             ajaxForm.reset();
             if (formNote) {
                 formNote.classList.add('is-success');
-                formNote.textContent = 'Thank you. Your request was sent successfully.';
+                formNote.textContent = successMessage;
             }
         } catch (error) {
             if (formNote) {
                 formNote.classList.add('is-error');
-                formNote.textContent = 'There was a problem sending your request. Please email us directly.';
+                formNote.textContent = errorMessage;
             }
         }
     });
@@ -245,3 +248,28 @@ if (insightsHub) {
 
     applyFilters();
 }
+
+// Bilingual pages: the default language pane is rendered visible server-side
+document.querySelectorAll('[data-lang-root]').forEach((langRoot) => {
+    const langButtons = Array.from(langRoot.querySelectorAll('[data-lang-btn]'));
+    const langPanes = Array.from(langRoot.querySelectorAll('[data-lang-pane]'));
+    if (!langButtons.length || !langPanes.length) {
+        return;
+    }
+
+    langButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            const lang = button.dataset.langBtn;
+
+            langPanes.forEach((pane) => {
+                pane.hidden = pane.dataset.langPane !== lang;
+            });
+
+            langButtons.forEach((btn) => {
+                const isActive = btn.dataset.langBtn === lang;
+                btn.classList.toggle('is-active', isActive);
+                btn.setAttribute('aria-pressed', String(isActive));
+            });
+        });
+    });
+});
